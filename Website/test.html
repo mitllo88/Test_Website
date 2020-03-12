@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html style="height:100%">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="ready.js"></script>
+        <style>
+        @keyframes mymove {
+            0%   {background: red;
+            transform: scale(0.75);}
+            25%  {background: orange;}
+            50%  {background: yellow;}
+            75%  {background: green;}
+            100% {background: blue;
+            transform: scale(0.75);}
+        }
+
+        @-webkit-keyframes mymove {
+            0%   {background: red;
+            transform: scale(0.75);}
+            25%  {background: orange;}
+            50%  {background: yellow;}
+            75%  {background: green;}
+            100% {background: blue;
+            transform: scale(0.75);}
+        }
+        </style>
+    </head>
+    <body style="height:100%">
+        <h1>Heading</h1>
+        <p id="myParagraph">
+            Paragraph!!
+        </p>
+        <input type="text" />
+    </body>
+    <script>
+    var n = "Adon";
+
+function myFunc(){
+    var n = "Pierre";
+}
+
+myFunc(); //call the function
+
+console.log(n);        
+        var timeout = null;
+        //on keyup event
+        $("input").on("keyup", function(){
+            //this is whatever talking to right now
+            //optional sorta
+            //this = input
+            //so self = input
+            var self = $(this);
+            if(timeout)
+                clearTimeout(timeout);
+            //after one second execute function
+            timeout = setTimeout(function(){
+                var newP = $("<p></p>");
+                newP.text(self.val());
+                //generate random colour
+                var red = Math.floor(Math.random() * 255);
+                var green = Math.floor(Math.random() * 255);
+                var blue = Math.floor(Math.random() * 255);
+                //set p element to colour
+                newP.css("color","rgb("+red+","+green+","+blue+")");
+                $("#myParagraph").append(newP);
+                self.val("");
+                clearTimeout(timeout);
+                $("h1").css("color", "red").slideUp(2000).slideDown(2000);
+            },1000);            
+        });
+        
+        //on click in body
+        $("body").on("click", function(e){ 
+            console.log(e);
+            var self = $(this);
+            //create div
+            var div = $("<div></div>");
+            //generate colour
+            var red = Math.floor(Math.random() * 255);
+            var green = Math.floor(Math.random() * 255);
+            var blue = Math.floor(Math.random() * 255);
+
+            //get click position and set colour to generated colour
+            div.css({
+                "position":"absolute",
+                "left":e.originalEvent.clientX+"px",
+                "top":e.originalEvent.clientY+"px",
+                "border-radius":"50%",
+                "width":"20px",
+                "height":"20px",
+                "animation": "mymove 2s infinite"
+            });
+            //put on screen
+            self.append(div);
+        });
+
+        var myObj = {
+            "key":"this is the value"
+        };
+
+        console.log(myObj);
+        console.log(myObj["key"]);
+    </script>
+</html>

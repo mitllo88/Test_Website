@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" type="text/css">
+	<script src="{{ url_for('static', filename='ready.js') }}"></script>
+    <title>Page 1</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="background-color: red; text-align: center;"><h1>This is my website</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="index.html"><h3>Link to page 1</h3></a></div>
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="page_2.html"><h3>Link to page 3</h3></a></div>
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="https://www.google.com/"><h3>Link to google</h3></a></div>
+        </div>
+    </div>
+    <div class="container" style="background-color: yellow;">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;"><h2>Inspirations</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="text-align: center; float: left;">
+                <h1>1.1.1.1</h1>
+                <p>1.1.1.1's design is very nice looking. It has a lot of whitespace that is broken up by (and subsequently draws your eye to) the main parts of the site: the logo, the download links and the company link. The logo also moves, drawing your attention to it, you are then also driven down to the arrow, which non-verbally instructs you to scroll down.</p>
+            </div>
+            <div class="col-md-6" style="float: right;"><img src="{{url_for('static', filename='1.1.1.1.png')}}" alt="1.1.1.1" width="75%" style="padding-top: 10px; padding-bottom: 10px;"/></div>
+            <br style="clear: both;"/>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="text-align: center; float: left;">
+                <h2>Github</h2>
+                <p>Github's design is also nice. The white text on a dark background emphasise the text along with a contrasting login box. The white bottom and partially obscured boxes draw your eyes down to more parts of the site.</p>
+            </div>
+            <div class="col-md-6" style="float: right;"><img src="{{url_for('static', filename='github.png')}}" alt="github" width="75%" style="padding-top: 10px; padding-bottom: 10px;"/></div>
+            <br style="clear: both;"/>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="text-align: center; float: left;">
+                <h1>AMD</h1>
+                <p>This site is nice because instead of large amounts of whitespace, there is alot of blackspace that is broken up by white text and a white logo as well as a large video that draws your attention to the latest product that they are trying to sell.</p>
+            </div>
+            <div class="col-md-6" style="float: right;"><img src="{{url_for('static', filename='amd.png')}}" alt="amd" width="75%" style="padding-top: 10px; padding-bottom: 20px;"/></div>
+            <br style="clear: both;"/>
+        </div>
+    </div>
+  </body>
+</html>
