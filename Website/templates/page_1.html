@@ -15,8 +15,8 @@
             <div class="col-md-12" style="background-color: red; text-align: center;"><h1>This is my website</h1></div>
         </div>
         <div class="row">
-            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="index.html"><h3>Link to page 1</h3></a></div>
-            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="page_2.html"><h3>Link to page 3</h3></a></div>
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="{{ url_for('index')}}"><h3>Link to home</h3></a></div>
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="{{ url_for('about')}}"><h3>Link to about</h3></a></div>
             <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="https://www.google.com/"><h3>Link to google</h3></a></div>
         </div>
     </div>
