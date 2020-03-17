@@ -41,10 +41,10 @@ def getCountry(country_name=None):
 
 @app.route('/countries', methods=['POST'])
 def addCountry():
-	name = request.json['name']
-	new_country = Country(name)
+	name = request.form['name']
+	new_country = Country(name=name)
 	new_country.save()
-	return jsonify(new_country)
+	return new_country.to_json()
 
 if __name__ == "__main__":
 	app.run(debug=True, port=8080)
