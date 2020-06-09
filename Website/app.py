@@ -1,12 +1,44 @@
 from flask import Flask, render_template, url_for, request
 from mongoengine import *
 import json
+import os
+import csv
 
 app = Flask(__name__, template_folder='templates')
-connect('test')
+app.config.from_object('config')
+db = connect('test')
 
 class Country(Document):
 	name = StringField()
+	data = DictField()
+
+@app.route('/add_data')
+def add_data():
+	for file in os.listdir(app.config['FILES_FOLDER']):
+		filename = os.fsdecode(file)
+		path = os.path.join(app.config['FILES_FOLDER'], filename)
+		f = open(path)
+		r = csv.DictReader(f)
+		d = list(r)
+		count = 0
+		for data in d:
+			country = Country()
+			dict = {}
+			for key in data:
+				if key == "country":
+					country.name = d[count]['country']
+					count += 1
+				else:
+					f = filename.replace(".csv","") # we want to trim off the ".csv" as we can't save anything with a "." as a mongodb field name
+					if f in dict: # check if this filename is already a field in the dict
+						dict[f][key] = data[key] # if it is, just add a new subfield which is key : data[key] (value)
+					else:
+						dict[f] = {key:data[key]} # if it is not, create a new object and assign it to the dict
+				
+				country.data = dict
+	
+			country.save()
+	return render_template('index.html')
 
 @app.route('/')
 @app.route('/home')
@@ -32,11 +64,20 @@ def load():
 @app.route('/countries', methods=['GET'])
 @app.route('/countries/<country_name>', methods=['GET'])
 def getCountry(country_name=None):
-	countries = None
-	if country_name is None:
-		return Country.objects.to_json()
-	else:
-		return Country.objects.get(name=country_name).to_json()
+	try:
+		if country_name is None:
+			country = Country.objects.all()
+			return render_template('country.html', country=country)
+		else:
+			country = Country.objects.get(name=country_name)
+			labels = []
+			data = []
+			for c in range(2000, 2020):
+				labels.append(c)
+				data.append(country["data"]["children"][str(c)])
+			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data)
+	except DoesNotExist:
+		return "Not Found"
 	
 
 @app.route('/countries', methods=['POST'])

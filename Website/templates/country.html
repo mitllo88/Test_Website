@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" type="text/css">
+	<!-- Load d3.js -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+	<script src="{{ url_for('static', filename='ready.js') }}"></script>
+    <title>Test</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="background-color: red; text-align: center;"><h1>This is my website</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="{{ url_for('index')}}"><h3>Link to page 1</h3></a></div>
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="{{ url_for('inspiration')}}"><h3>Link to page 2</h3></a></div>
+            <div class="col-md-4" style="background-color: orange; text-align: center;"><a href="{{ url_for('about') }}"><h3>About</h3></a></div>
+        </div>
+    </div>
+    <div class="container" style="background-color: yellow;">
+	  <center>
+		<h1>{{ title }}</h1>
+	  </center>
+	  <center>
+		<canvas id="chart" width="600" height="400"></canvas>
+		<script>
+		  // bar chart data
+		  var barData = {
+			labels : [
+			  {% for item in labels %}
+			   "{{ item }}",
+			  {% endfor %}
+		],
+
+			datasets : [{
+			  fillColor: "rgba(151,187,205,0.2)",
+			  strokeColor: "rgba(151,187,205,1)",
+			  pointColor: "rgba(151,187,205,1)",
+			  data : [
+				{% for item in data %}
+				   "{{ item }}",
+				  {% endfor %}
+			]
+			  }
+			]
+		  }
+
+		 // get bar chart canvas
+		 var mychart = document.getElementById("chart").getContext("2d");
+
+		   steps = 10
+		   max = {{max}}
+
+		 // draw bar chart
+		 new Chart(mychart).Bar(barData, {
+		   scaleOverride: true,
+		   scaleSteps: steps,
+		   scaleStepWidth: Math.ceil(max / steps),
+		   scaleStartValue: 0,
+		   scaleShowVerticalLines: true,
+		   scaleShowGridLines : true,
+		   barShowStroke : true,
+		   scaleShowLabels: true
+		   }
+		 );
+
+		</script>
+	  </center>
+    </div>
+    </div>
+  </body>
+</html>

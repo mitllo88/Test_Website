@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" type="text/css">
-	<script src="ready.js"></script>
+	<script src="{{ url_for('static', filename='ready.js') }}"></script>
     <title>Test</title>
   </head>
   <body>
@@ -21,7 +21,8 @@
         </div>
     </div>
     <div class="container" style="background-color: yellow;">
-        
+        <h1>About</h1>
+		<p>This is an assignment for Web3</p>
     </div>
     </div>
   </body>
