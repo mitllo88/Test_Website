@@ -10,6 +10,7 @@ var usersRouter = require("./routes/users");
 var testAPIRouter = require("./routes/testAPI");
 
 var app = express();
+app.listen(3000, '0.0.0.0',()=>{console.log("Listening on port 3000");});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
