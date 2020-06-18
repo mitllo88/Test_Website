@@ -67,12 +67,17 @@ def getCountry(country_name=None):
 	try:
 		if country_name is None:
 			country = Country.objects.all()
-			return render_template('country.html', country=country)
+			labels = []
+			data = []
+			for c in country:
+				labels.append(c.name)
+				data.append(c["data"]["children"]["2020"])
+			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data)
 		else:
 			country = Country.objects.get(name=country_name)
 			labels = []
 			data = []
-			for c in range(2000, 2020):
+			for c in range(2000, 2021):
 				labels.append(c)
 				data.append(country["data"]["children"][str(c)])
 			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data)
