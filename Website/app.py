@@ -73,7 +73,7 @@ def getCountry(country_name=None):
 			for c in country:
 				labels.append(c.name)
 				data.append(c["data"]["children"]["2020"])
-			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data, length=length)
+			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data, length=length, country_name="All Countries")
 		else:
 			length = 500
 			country = Country.objects.get(name=country_name)
@@ -82,7 +82,7 @@ def getCountry(country_name=None):
 			for c in range(2000, 2021):
 				labels.append(c)
 				data.append(country["data"]["children"][str(c)])
-			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data, length=length)
+			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data, length=length, country_name=country_name)
 	except DoesNotExist:
 		return "Not Found"
 	
