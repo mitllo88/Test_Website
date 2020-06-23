@@ -66,21 +66,23 @@ def load():
 def getCountry(country_name=None):
 	try:
 		if country_name is None:
+			length = 2000
 			country = Country.objects.all()
 			labels = []
 			data = []
 			for c in country:
 				labels.append(c.name)
 				data.append(c["data"]["children"]["2020"])
-			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data)
+			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data, length=length)
 		else:
+			length = 500
 			country = Country.objects.get(name=country_name)
 			labels = []
 			data = []
 			for c in range(2000, 2021):
 				labels.append(c)
 				data.append(country["data"]["children"][str(c)])
-			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data)
+			return render_template('country.html', title="Average children per family", max=10, labels=labels, data=data, length=length)
 	except DoesNotExist:
 		return "Not Found"
 	
@@ -93,5 +95,5 @@ def addCountry():
 	return new_country.to_json()
 
 if __name__ == "__main__":
-	#app.run(debug=True, port=8080)
-	app.run(host='0.0.0.0', debug=True, port=80)
+	app.run(debug=True, port=8080)
+	#app.run(host='0.0.0.0', debug=True, port=80)
